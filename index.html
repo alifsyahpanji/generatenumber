@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Random Numbers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            text-align: center;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 100px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Generate Unique Random Numbers</h2>
+    <input type="number" id="minValue" placeholder="Min Value">
+    <input type="number" id="maxValue" placeholder="Max Value">
+    <br>
+    <button onclick="generateRandomNumbers()">Generate</button>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    function generateRandomNumbers() {
+        const min = parseInt(document.getElementById('minValue').value);
+        const max = parseInt(document.getElementById('maxValue').value);
+        const resultDiv = document.getElementById('result');
+        
+        // Clear previous result
+        resultDiv.innerHTML = '';
+
+        // Validation: ensure min < max and at least 15 numbers can be generated
+        if (isNaN(min) || isNaN(max) || min >= max || max - min + 1 < 15) {
+            resultDiv.innerHTML = 'Invalid input. Ensure min < max and the range allows 15 unique numbers.';
+            return;
+        }
+
+        // Generate unique random numbers
+        const numbers = [];
+        while (numbers.length < 15) {
+            const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+            if (!numbers.includes(randomNumber)) {
+                numbers.push(randomNumber);
+            }
+        }
+
+        // Display result
+        resultDiv.innerHTML = numbers.join(' ');
+    }
+</script>
+
+</body>
+</html>
